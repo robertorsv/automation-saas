@@ -1,0 +1,10 @@
+<svg width="400" height="100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .text-white { fill: white; }
+    .text-blue { fill: #a0d8ef; }
+    .logo-text { font-family: Arial, sans-serif; font-weight: bold; font-size: 60px; }
+  </style>
+  <rect width="400" height="100" fill="black"/>
+  <text x="20" y="70" class="logo-text text-white">automatiza</text>
+  <text x="280" y="70" class="logo-text text-blue">tek</text>
+</svg> 

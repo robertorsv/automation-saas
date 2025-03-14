@@ -7,6 +7,7 @@ import { translations } from "@/app/translations";
 import { LanguageSwitcher } from "./language-switcher";
 import { SocialAuth } from "@/components/social-auth";
 import { Button } from "@/components/ui/button";
+import { StyledCompanyName } from "@/components/styled-company-name";
 import {
   Sheet,
   SheetContent,
@@ -20,50 +21,74 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-20 items-center justify-between">
-        <div className="flex items-center gap-6 md:gap-10">
+      <div className="container flex h-14 sm:h-16 md:h-20 items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center gap-2 md:gap-10">
           <Link href="/" className="flex items-center space-x-2">
-            <div className="h-8 w-8 bg-primary rounded-md"></div>
-            <span className="font-bold text-lg">AutoFlow</span>
+            <span className="font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl">
+              <StyledCompanyName />
+            </span>
           </Link>
           
           {/* Desktop Navigation - Hidden on mobile, visible on md screens and up */}
-          <nav className="hidden md:flex gap-4 lg:gap-6">
+          <nav className="hidden md:flex gap-4 lg:gap-8">
             <Link
               href="/#features"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary whitespace-nowrap overflow-hidden text-ellipsis max-w-[100px] lg:max-w-none"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary whitespace-nowrap"
             >
               {t.features}
             </Link>
             <Link
               href="/#pricing"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary whitespace-nowrap overflow-hidden text-ellipsis max-w-[100px] lg:max-w-none"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary whitespace-nowrap"
             >
               {t.pricing}
             </Link>
             <Link
               href="/about"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary whitespace-nowrap overflow-hidden text-ellipsis max-w-[100px] lg:max-w-none"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary whitespace-nowrap"
             >
               {t.about}
             </Link>
             <Link
               href="/contact"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary whitespace-nowrap overflow-hidden text-ellipsis max-w-[100px] lg:max-w-none"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary whitespace-nowrap"
             >
               {t.contact}
             </Link>
           </nav>
         </div>
         
-        <div className="flex items-center gap-4">
-          <LanguageSwitcher />
-          <SocialAuth />
+        <div className="flex items-center space-x-2 sm:space-x-3">
+          {/* Hide language switcher on very small screens */}
+          <div className="hidden xs:block">
+            <LanguageSwitcher />
+          </div>
+          
+          {/* Hide full auth buttons on smaller screens */}
+          <div className="hidden sm:block">
+            <SocialAuth />
+          </div>
+          
+          {/* Show compact auth buttons on small screens */}
+          <div className="sm:hidden">
+            <div className="flex items-center">
+              <Link href="/login">
+                <Button variant="ghost" size="icon" className="h-8 w-8">
+                  <span className="sr-only">{t.signIn}</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                    <polyline points="10 17 15 12 10 7"/>
+                    <line x1="15" y1="12" x2="3" y2="12"/>
+                  </svg>
+                </Button>
+              </Link>
+            </div>
+          </div>
           
           {/* Mobile Menu - Visible on mobile, hidden on md screens and up */}
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
+              <Button variant="ghost" size="icon" className="h-8 w-8 md:hidden">
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Toggle menu</span>
               </Button>
@@ -102,6 +127,11 @@ export function Header() {
                     {t.contact}
                   </Link>
                 </SheetClose>
+                
+                {/* Show language switcher in mobile menu for very small screens */}
+                <div className="xs:hidden py-2">
+                  <LanguageSwitcher />
+                </div>
               </nav>
             </SheetContent>
           </Sheet>

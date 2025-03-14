@@ -12,17 +12,18 @@ export function LanguageSwitcher() {
       variant="outline" 
       size="sm" 
       onClick={toggleLanguage}
-      className="flex items-center gap-1"
+      className="h-8 w-auto px-2 flex items-center gap-1"
+      aria-label={language === "en" ? "Switch to Spanish" : "Switch to English"}
     >
       {language === "en" ? (
         <>
-          <span>🇪🇸</span>
-          <span className="hidden sm:inline">{translations[language].switchToSpanish}</span>
+          <span className="text-base">🇪🇸</span>
+          <span className="hidden sm:inline text-xs">{translations[language].switchToSpanish}</span>
         </>
       ) : (
         <>
-          <span>🇬🇧</span>
-          <span className="hidden sm:inline">{translations[language].switchToEnglish}</span>
+          <span className="text-base">🇬🇧</span>
+          <span className="hidden sm:inline text-xs">{translations[language].switchToEnglish}</span>
         </>
       )}
     </Button>

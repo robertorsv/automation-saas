@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Header } from "@/app/components/header"
 import { useLanguage } from "@/app/contexts/language-context"
 import { translations } from "@/app/translations"
+import { StyledCompanyName } from "@/components/styled-company-name"
 
 export default function AboutPage() {
   const { language } = useLanguage();
@@ -21,7 +22,7 @@ export default function AboutPage() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">{t.aboutAutoFlow}</h1>
+                <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">About <StyledCompanyName /></h1>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   {t.missionStatement}
                 </p>
@@ -184,7 +185,7 @@ export default function AboutPage() {
       <footer className="w-full border-t py-6 md:py-0">
         <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
           <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-            © {new Date().getFullYear()} AutoFlow. {t.allRightsReserved}
+            © {new Date().getFullYear()} <span className="font-semibold"><StyledCompanyName /></span>. {t.allRightsReserved}
           </p>
           <div className="flex gap-4">
             <Link href="/terms" className="text-sm text-muted-foreground underline-offset-4 hover:underline">

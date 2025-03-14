@@ -11,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Header } from "@/app/components/header"
 import { useLanguage } from "@/app/contexts/language-context"
 import { translations } from "@/app/translations"
+import { StyledCompanyName } from "@/components/styled-company-name"
 
 export default function ContactPage() {
   const { language } = useLanguage();
@@ -42,7 +43,10 @@ export default function ContactPage() {
                       <Mail className="h-5 w-5 text-primary" />
                       <div>
                         <h3 className="font-medium">{t.email}</h3>
-                        <p className="text-sm text-muted-foreground">info@autoflow.com</p>
+                        <div className="flex items-center gap-2">
+                          <Mail className="h-4 w-4 text-muted-foreground" />
+                          <p className="text-sm text-muted-foreground">info@automatizatek.com</p>
+                        </div>
                       </div>
                     </div>
                     <div className="flex items-center gap-4">
@@ -268,7 +272,7 @@ export default function ContactPage() {
       <footer className="w-full border-t py-6 md:py-0">
         <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
           <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-            © {new Date().getFullYear()} AutoFlow. {t.allRightsReserved}
+            © {new Date().getFullYear()} <span className="font-semibold"><StyledCompanyName /></span>. {t.allRightsReserved}
           </p>
           <div className="flex gap-4">
             <Link href="/terms" className="text-sm text-muted-foreground underline-offset-4 hover:underline">

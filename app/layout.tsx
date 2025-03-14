@@ -7,8 +7,16 @@ import { ClientProvider } from "./components/client-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AutoFlow",
+  title: "automatizatek - Powerful AI Automation",
   description: "Powerful AI Automation for your business",
+  icons: {
+    icon: [
+      {
+        url: '/favicon.svg',
+        type: 'image/svg+xml',
+      }
+    ],
+  }
 };
 
 export default function RootLayout({
@@ -33,7 +41,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-
-
-import './globals.css'

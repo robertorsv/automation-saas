@@ -2,20 +2,40 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, CheckCircle, Play } from "lucide-react"
+import { ArrowRight, CheckCircle, Play, Phone, Mail, MapPin, Download } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { WorkflowCarousel } from "@/components/workflow-carousel"
+import { FeaturesSections } from "@/components/features-sections"
 import { SocialAuth } from "@/components/social-auth"
 import { TestimonialCarousel } from "@/components/testimonial-carousel"
 import { Header } from "@/app/components/header"
 import { useLanguage } from "@/app/contexts/language-context"
 import { translations } from "@/app/translations"
+import { StyledCompanyName } from "@/components/styled-company-name"
 
 export default function Home() {
   const { language } = useLanguage();
   const t = translations[language];
+  
+  // Contact information
+  const phoneNumber = "+1234567890"; // Replace with actual phone number
+  const email = "contact@automatizatek.com"; // Replace with actual email
+  const address = `${t.streetAddress}, ${t.cityStateZip}, ${t.country}`;
+  
+  // Create vCard data for the Add Contact button
+  const vCardData = `BEGIN:VCARD
+VERSION:3.0
+FN:automatizatek Support
+TEL;TYPE=WORK,VOICE:${phoneNumber}
+EMAIL;TYPE=WORK:${email}
+ADR;TYPE=WORK:;;${t.streetAddress};${t.cityStateZip};;${t.country}
+ORG:automatizatek
+END:VCARD`;
+  
+  // Create a data URL for the vCard
+  const vCardURL = `data:text/vcard;charset=utf-8,${encodeURIComponent(vCardData)}`;
   
   return (
     <div className="flex flex-col min-h-screen">
@@ -65,6 +85,207 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Contact Section */}
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-muted/30">
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center mb-8">
+              <div className="space-y-2">
+                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
+                  {t.contactUs}
+                </h2>
+                <p className="max-w-[900px] text-muted-foreground md:text-xl">
+                  {t.getInTouch}
+                </p>
+              </div>
+            </div>
+            
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {/* Contact Information Card */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>{t.contactInfo}</CardTitle>
+                  <CardDescription>{t.reachOutChannels}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <Phone className="h-5 w-5 text-primary" />
+                    <div>
+                      <p className="font-medium">{t.phone}</p>
+                      <p className="text-sm text-muted-foreground">{phoneNumber}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Mail className="h-5 w-5 text-primary" />
+                    <div>
+                      <p className="font-medium">{t.email}</p>
+                      <p className="text-sm text-muted-foreground">{email}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <MapPin className="h-5 w-5 text-primary" />
+                    <div>
+                      <p className="font-medium">{t.address}</p>
+                      <p className="text-sm text-muted-foreground">{address}</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              {/* WhatsApp and Add Contact Card */}
+              <Card className="md:col-span-2 lg:col-span-1">
+                <CardHeader>
+                  <CardTitle>{t.connectWithUs}</CardTitle>
+                  <CardDescription>{t.followSocial}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex flex-col gap-4 mt-4">
+                    <a
+                      href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 bg-[#25D366] text-white py-2 px-4 rounded-md hover:bg-opacity-90 transition-all"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="w-5 h-5"
+                      >
+                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                      </svg>
+                      {t.whatsappButton}
+                    </a>
+                    
+                    {/* Instagram Button */}
+                    <a
+                      href="https://www.instagram.com/automatizatek"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 bg-[#E1306C] text-white py-2 px-4 rounded-md hover:bg-opacity-90 transition-all"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="w-5 h-5"
+                      >
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                      </svg>
+                      {t.instagramButton}
+                    </a>
+                    
+                    {/* Facebook Button */}
+                    <a
+                      href="https://www.facebook.com/automatizatek"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 bg-[#1877F2] text-white py-2 px-4 rounded-md hover:bg-opacity-90 transition-all"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="w-5 h-5"
+                      >
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                      </svg>
+                      {t.facebookButton}
+                    </a>
+                    
+                    {/* LinkedIn Button */}
+                    <a
+                      href="https://www.linkedin.com/company/automatizatek"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 bg-[#0A66C2] text-white py-2 px-4 rounded-md hover:bg-opacity-90 transition-all"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="w-5 h-5"
+                      >
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                      </svg>
+                      {t.linkedinButton}
+                    </a>
+                    
+                    {/* TikTok Button */}
+                    <a
+                      href="https://www.tiktok.com/@automatizatek"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 bg-[#EE1D52] text-white py-2 px-4 rounded-md hover:bg-opacity-90 transition-all"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="w-5 h-5"
+                      >
+                        <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path>
+                        <path d="M15 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path>
+                        <path d="M15 8v8a4 4 0 0 1-4 4"></path>
+                        <line x1="15" y1="4" x2="15" y2="12"></line>
+                      </svg>
+                      {t.tiktokButton}
+                    </a>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              {/* Quick Contact Form Card */}
+              <Card className="lg:col-span-1">
+                <CardHeader>
+                  <CardTitle>{t.sendMessage}</CardTitle>
+                  <CardDescription>{t.fillForm}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button className="w-full">
+                    <Link href="/contact" className="w-full">
+                      {t.sendMessageButton}
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
         <section id="features" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
@@ -81,7 +302,7 @@ export default function Home() {
               </div>
             </div>
             <div className="mx-auto mt-12 max-w-5xl">
-              <WorkflowCarousel />
+              <FeaturesSections />
             </div>
           </div>
         </section>
@@ -292,7 +513,7 @@ export default function Home() {
       <footer className="w-full border-t py-6 md:py-0">
         <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
           <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-            © {new Date().getFullYear()} AutoFlow. {t.allRightsReserved}
+            © {new Date().getFullYear()} <span className="font-semibold"><StyledCompanyName /></span>. {t.allRightsReserved}
           </p>
           <div className="flex gap-4">
             <Link href="/terms" className="text-sm text-muted-foreground underline-offset-4 hover:underline">

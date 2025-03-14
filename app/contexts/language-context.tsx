@@ -16,15 +16,19 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   // Load saved language preference on initial render
   useEffect(() => {
-    const savedLanguage = localStorage.getItem("language") as Language;
-    if (savedLanguage && (savedLanguage === "en" || savedLanguage === "es")) {
-      setLanguage(savedLanguage);
+    if (typeof window !== 'undefined') {
+      const savedLanguage = localStorage.getItem("language") as Language;
+      if (savedLanguage && (savedLanguage === "en" || savedLanguage === "es")) {
+        setLanguage(savedLanguage);
+      }
     }
   }, []);
 
   // Save language preference when it changes
   useEffect(() => {
-    localStorage.setItem("language", language);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("language", language);
+    }
   }, [language]);
 
   const toggleLanguage = () => {
